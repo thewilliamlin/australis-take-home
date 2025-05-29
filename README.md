@@ -1,3 +1,26 @@
+# 🐱‍🏍 Pokédex Challenge — React + Vite + TypeScript
+
+Welcome to the Pokédex Take-Home Challenge! This is a short coding assignment meant to assess your ability to work with APIs, manage state, and build UI components in React with TypeScript.
+
+---
+
+## 🚀 Getting Started
+
+Follow these steps to get the project running locally:
+
+1. **Fork this repository** to your own GitHub account.
+2. **Clone your forked repo** to your local machine:
+
+   ```bash
+   git clone https://github.com/YOUR_USERNAME/pokedex-challenge.git
+   cd pokedex-challenge
+   npm install
+   npm install
+
+   ```
+
+3. **Open** http://localhost:5173 in your browser to view the app.
+
 # 🎯 Your Task
 
 Build a simple **Pokédex** where users can:
@@ -51,4 +74,5 @@ If you have extra time, consider adding:
    ```
 
 3. Share the link to your repo with us
+
 # australis-take-home
