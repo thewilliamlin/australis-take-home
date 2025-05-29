@@ -74,5 +74,3 @@ If you have extra time, consider adding:
    ```
 
 3. Share the link to your repo with us
-
-# australis-take-home
