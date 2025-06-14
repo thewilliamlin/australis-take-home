@@ -1,5 +1,8 @@
 import "./App.css";
+import React from "react";
+import { Routes, Route, BrowserRouter } from "react-router-dom";
 import PokemonSelector from "./components/PokemonSelector.tsx";
+import SavedPokemon from "./components/SavedPokemon";
 
 function App() {
   return (
@@ -8,7 +11,14 @@ function App() {
     //   <p>Start building here.</p>
     // </div>
     <>
-      <PokemonSelector />
+      <React.StrictMode>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<PokemonSelector />} />
+            <Route path="/Saved" element={<SavedPokemon />} />
+          </Routes>
+        </BrowserRouter>
+      </React.StrictMode>
     </>
   );
 }
