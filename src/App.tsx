@@ -5,6 +5,9 @@ import PokemonSelector from "./components/PokemonSelector.tsx";
 import SavedPokemon from "./components/SavedPokemon";
 
 function App() {
+  if (!localStorage.getItem('savedPokemon')) {
+    localStorage.setItem('savedPokemon', JSON.stringify([]));
+  }
   return (
     // <div style={{ padding: "2rem" }}>
     //   <h1>Welcome to the Challenge!</h1>

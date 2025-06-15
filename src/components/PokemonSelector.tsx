@@ -1,4 +1,11 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
+
+function addItemToStorage(data: { name: string; sprite: string }) {
+    const unparsed = localStorage.getItem('savedPokemon'); // stringified JSON array
+    const savedPokemon = unparsed ? JSON.parse(unparsed) : []; // parse to array
+    savedPokemon.push(data);
+    localStorage.setItem('savedPokemon', JSON.stringify(savedPokemon));
+}
 
 function PokemonSelector() {
     const [inputtedPokemon, setPokemon] = useState("");
@@ -55,7 +62,16 @@ function PokemonSelector() {
                 </div>
             </div>
 
-            {pokeJson.name && <button>
+            {pokeJson.name && 
+            <button
+            onClick = {() => {
+                var pokeName = pokeJson.name
+                var pokeSprite = pokeJson.sprites.front_default
+                const savedData = {name: pokeName, sprite: pokeSprite}
+                // 
+                addItemToStorage(savedData);
+            }}
+            >
                 Save {pokeJson.name}
             </button>}
         </div>
