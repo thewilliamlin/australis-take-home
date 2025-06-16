@@ -1,16 +1,22 @@
 import { useState, useEffect } from "react";
 
-function addItemToStorage(data: { name: string; sprite: string }) {
-    const unparsed = localStorage.getItem('savedPokemon'); // stringified JSON array
-    const savedPokemon = unparsed ? JSON.parse(unparsed) : []; // parse to array
-    savedPokemon.push(data);
-    localStorage.setItem('savedPokemon', JSON.stringify(savedPokemon));
-}
 
 function PokemonSelector() {
     const [inputtedPokemon, setPokemon] = useState("");
     const [currentInput, setCurrentInput] = useState("");
     const [pokeJson, setPokeJson] = useState<{ [key: string]: any }>({});
+    const [savedPokemon, setSavedPokemon] = useState([]);
+
+    function addItemToStorage(data: { name: string; sprite: string }) {
+        const unparsed = localStorage.getItem('savedPokemon'); // stringified JSON array
+        const savedPokemon = unparsed ? JSON.parse(unparsed) : []; // parse to array
+        savedPokemon.push(data);
+        console.log(localStorage)
+        console.log("saved")
+        localStorage.setItem('savedPokemon', JSON.stringify(savedPokemon));
+        setSavedPokemon(savedPokemon);
+
+    }
     useEffect(() => {
         const fetchDitto = async () => {
             try {
@@ -27,7 +33,7 @@ function PokemonSelector() {
             };
         }
         fetchDitto();
-    }, [inputtedPokemon]
+    }, [inputtedPokemon, savedPokemon]
     )
     return (
         <div>
@@ -62,18 +68,18 @@ function PokemonSelector() {
                 </div>
             </div>
 
-            {pokeJson.name && 
-            <button
-            onClick = {() => {
-                var pokeName = pokeJson.name
-                var pokeSprite = pokeJson.sprites.front_default
-                const savedData = {name: pokeName, sprite: pokeSprite}
-                // 
-                addItemToStorage(savedData);
-            }}
-            >
-                Save {pokeJson.name}
-            </button>}
+            {pokeJson.name &&
+                <button
+                    onClick={() => {
+                        var pokeName = pokeJson.name
+                        var pokeSprite = pokeJson.sprites.front_default
+                        const savedData = { name: pokeName, sprite: pokeSprite }
+                        // 
+                        addItemToStorage(savedData);
+                    }}
+                >
+                    Save {pokeJson.name}
+                </button>}
         </div>
 
 

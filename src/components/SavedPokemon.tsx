@@ -1,25 +1,23 @@
 import React, { useState, useEffect } from "react";
 
+
 function SavedPokemon() {
-    const [inputtedPokemon, setPokemon] = useState("");
+
     const [savedPokemon, setSavedPokemon] = useState([]);
-    const [pokeJson, setPokeJson] = useState<{ [key: string]: any }>({});
+
+    function removeItemFromStorage(data: { name: string; sprite: string }) {
+        console.log("clicked")
+        const unparsed = localStorage.getItem('savedPokemon'); // stringified JSON array
+        var savedPokemon = unparsed ? JSON.parse(unparsed) : []; // parse to array
+        // savedPokemon.push(data);
+        savedPokemon = savedPokemon.filter((pokeData: { name: string; sprite: string }) => pokeData.name !== data.name)
+        localStorage.setItem('savedPokemon', JSON.stringify(savedPokemon));
+        console.log(savedPokemon)
+        setSavedPokemon(savedPokemon)
+        console.log("here")
+    }
+
     useEffect(() => {
-        // const fetchDitto = async () => {
-        //     try {
-        //         const dittoData = await fetch(`https://pokeapi.co/api/v2/pokemon/${inputtedPokemon}`);
-        //         if (dittoData.ok) {
-        //             const data = await dittoData.json();
-        //             console.log("data");
-        //             console.log(data);
-        //             setPokeJson(data);
-        //         }
-        //     }
-        //     catch (error) {
-        //         console.log(error);
-        //     };
-        // }
-        // fetchDitto();
         var unparsed = localStorage.getItem('savedPokemon');
         // console.log(localStorage.length);
         console.log(`unparsed: ${unparsed}`)
@@ -29,16 +27,22 @@ function SavedPokemon() {
     }, []
     )
     return (
-        <div>
+        <div style={{ display: 'flex', flexDirection: 'column', fontWeight: 'bold', fontSize: '30px' }}>
             Saved Pokemon
-            {savedPokemon.map((pokemon, index) => 
-            <div key={index}>
-                <div>
-                    {pokemon.name}
-                </div>    
+            {savedPokemon.map((pokemon, index) =>
+                <div key={index} style={{ border: '2px solid black', backgroundColor: 'red', display: 'flex', flexDirection: 'column' }}>
+                    <div style={{ padding: '10px', fontSize: '20px', fontWeight: 'bold' }}>
+                        {pokemon.name}
+                    </div>
                     <img src={pokemon.sprite}>
                     </img>
-            </div>)}
+                    <button
+                        style={{ padding: '10px', fontSize: '15px' }}
+                        onClick={() => removeItemFromStorage({name: pokemon.name, sprite: pokemon.sprite})}
+                    >
+                        remove {pokemon.name}
+                    </button>
+                </div>)}
         </div>
 
 
